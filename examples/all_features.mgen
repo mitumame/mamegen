@@ -1,0 +1,61 @@
+# 多くの要素含む
+mamegen {
+  CONFIG {
+    type CSV
+    count 10
+    reproducible true
+    output_encoding "utf-8"
+  }
+
+  HEADER { ["id","name","birth","email","ans_label","ans_value","promo","promo_copy","code"] }
+
+  REFERENCE "Q1" {
+    "A" 1
+    "B" 2
+    "C" 3
+  }
+
+  CLASS {
+    "username" {
+      charset alphabet
+      length 8
+      allow_null false
+    }
+  }
+
+  COLUMN_RULES {
+    INDEX 1 {
+      seq 1..2
+      digits 4
+    }
+    LABEL "name" {
+      class "username"
+    }
+    LABEL "birth" {
+      date_range "1980-01-01".."2000-12-31"
+    }
+    LABEL "email" {
+      type string
+      length 16
+      null_probability 0.2
+    }
+    LABEL "ans_label" {
+      reference "Q1"
+      output label
+    }
+    LABEL "ans_value" {
+      reference "Q1"
+      value_source "ans_label"
+      output value
+    }
+    LABEL "promo" {
+      enum ["SALE10","SALE20","FREESHIP"]
+    }
+    LABEL "promo_copy" {
+      copy "promo"
+    }
+    LABEL "code" {
+      join ["PROMO-", promo_copy]
+    }
+  }
+}

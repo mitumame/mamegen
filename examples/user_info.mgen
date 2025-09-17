@@ -1,0 +1,34 @@
+# ユーザJSON
+mamegen {
+  CONFIG {
+    type CSV
+    count 50
+    reproducible true
+  }
+
+  HEADER { ["user_id","username","tel","birth","gender","email", "date","other1"] }
+
+  COLUMN_RULES {
+    LABEL "user_id" {
+      seq 100
+      digits 6
+    }
+    LABEL "username" {
+      charset alphabet
+      length 8
+    }
+    LABEL "birth" {
+      date_range "2000-01-01".."2010-12-31"
+    }
+    LABEL "gender" {
+      enum ["M","F","Other"]
+    }
+    LABEL "email" {
+      charset alphabet
+      length 16
+    }
+    LABEL "date" {
+      datetime
+    }
+  }
+}

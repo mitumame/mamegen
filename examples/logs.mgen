@@ -1,0 +1,29 @@
+# ログ
+mamegen {
+  CONFIG {
+    type CSV
+    count 8
+    reproducible true
+  }
+
+  HEADER { ["log_id","user_id","timestamp","action","detail"] }
+
+  COLUMN_RULES {
+    LABEL "log_id" {
+      seq 1
+    }
+    LABEL "user_id" {
+      seq 1000
+    }
+    LABEL "timestamp" {
+      datetime
+    }
+    LABEL "action" {
+      enum ["LOGIN","LOGOUT","VIEW","PURCHASE"]
+    }
+    LABEL "detail" {
+      charset alphabet
+      length 20
+    }
+  }
+}

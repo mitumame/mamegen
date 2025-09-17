@@ -1,0 +1,30 @@
+# 製品
+mamegen {
+  CONFIG {
+    type CSV
+    count 6
+    reproducible true
+  }
+
+  HEADER { ["product_id","name","category","price","stock"] }
+
+  COLUMN_RULES {
+    LABEL "product_id" {
+      seq 1
+      digits 5
+    }
+    LABEL "name" {
+      charset alphabet
+      length 12
+    }
+    LABEL "category" {
+      enum ["Book","Toy","Electronics","Food"]
+    }
+    LABEL "price" {
+      range 100..5000
+    }
+    LABEL "stock" {
+      range 0..100
+    }
+  }
+}

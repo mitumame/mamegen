@@ -1,0 +1,27 @@
+# プロモーション
+mamegen {
+  CONFIG {
+    type CSV
+    count 5
+    reproducible true
+  }
+
+  # 生成補助のための中間列もヘッダーに含める（最後に code を join で合成）
+  HEADER { ["code_num","code","discount","expiry"] }
+
+  COLUMN_RULES {
+    LABEL "code_num" {
+      seq 1
+      digits 4
+    }
+    LABEL "code" {
+      join ["PROMO-", code_num]
+    }
+    LABEL "discount" {
+      enum ["10%","20%","30%","50%"]
+    }
+    LABEL "expiry" {
+      date_range "2025-01-01".."2025-12-31"
+    }
+  }
+}
